@@ -17,6 +17,7 @@ Now you can visit [`localhost:9080`](http://localhost:9080) from your browser.
 
 To Start Tests
 
+ * Export REDDIS_CONNECTOIN `export REDIS_CONNECTION=redis://localhost:6379/1`
  * mix test
 
 
