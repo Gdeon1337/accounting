@@ -11,16 +11,13 @@ defmodule AccountingWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    get "/visited_domains", AccountingWeb.PageController, :index
-    post "/visited_links", AccountingWeb.PageController, :create
   end
-
-  scope "/", AccountingWeb do
-    pipe_through :browser
-
-    
+  
+  scope "/api", AccountingWeb do
+    pipe_through :api
+    resources "/domains", AgricultureController, only: [:index, :create]
   end
-
+  
   # Other scopes may use custom stacks.
   # scope "/api", AccountingWeb do
   #   pipe_through :api
