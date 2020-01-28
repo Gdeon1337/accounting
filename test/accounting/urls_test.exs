@@ -23,26 +23,6 @@ defmodule Accounting.UrlsTest do
       assert status == :ok
     end
 
-    test "check_valid_url" do
-      status = Urls.check_url(@valid_url)
-      assert status == %{host: @valid_host}
-    end
-
-    test "check_invalid_url" do
-      status = Urls.check_url(@invalid_url)
-      assert status == %{host: nil}
-    end
-
-    test "save_host_valid_params" do
-      status = Urls.save_host(%{host: @valid_host}, @date_time)
-      assert status != {:error, :incorrect_data}
-    end
-
-    test "save_host_invalid_params" do
-      status = Urls.save_host(%{host: nil}, @date_time)
-      assert status == {:error, :incorrect_data}
-    end
-
     test "list_host_invalid_params_from" do
       status = Urls.list_hosts(%{"from" => "invalid_params", "to" => @date_time})
       assert status == {:error, :incorrect_data}

@@ -36,7 +36,7 @@ defmodule Accounting.Urls do
     end
 
     defp save_host(_host, _attrs) do
-        []
+        {:error, :incorrect_data}
     end
 
     def list_hosts(%{"from" => from, "to"=> to}) do

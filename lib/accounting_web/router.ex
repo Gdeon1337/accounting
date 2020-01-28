@@ -15,11 +15,7 @@ defmodule AccountingWeb.Router do
   
   scope "/api", AccountingWeb do
     pipe_through :api
-    resources "/domains", AgricultureController, only: [:index, :create]
+    resources "/domains", PageController, only: [:index, :create]
   end
-  
-  # Other scopes may use custom stacks.
-  # scope "/api", AccountingWeb do
-  #   pipe_through :api
-  # end
+
 end
