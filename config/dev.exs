@@ -1,9 +1,9 @@
 use Mix.Config
 
-config :exredis,
-  url: System.get_env("REDIS_CONNECTION"),
-  reconnect: 5,
-  max_queue: :infinity
+# config :exredis,
+#   url: System.get_env("REDIS_CONNECTION"),
+#   reconnect: 5,
+#   max_queue: :infinity
 
 # For development, we disable any cache and enable
 # debugging and code reloading.

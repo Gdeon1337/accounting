@@ -3,23 +3,22 @@ defmodule Accounting.RedisConnection do
     import Exredis.Api
     require Logger
 
-    def start_link(_redis_connection) do
-        GenServer.start_link(__MODULE__, _redis_connection, name: __MODULE__)
+    def start_link(redis_connection) do
+        GenServer.start_link(__MODULE__, redis_connection, name: __MODULE__)
     end
 
-    def init(_redis_connection) do
+    def init(redis_connection) do
         Process.flag(:trap_exit, true)
         Logger.info("Redis connection created...")
         initial_state = %{
-            pid: connection()
+            pid: connection(redis_connection)
         } 
         Logger.info("Redis connection successfull create")
         {:ok, initial_state}
     end
 
-    defp connection() do
-        {:ok, pid} = Exredis.start_link()
-        pid
+    defp connection(redis_connection) do
+        Exredis.start_using_connection_string(redis_connection)
     end
 
     def handle_info(msg, state) do

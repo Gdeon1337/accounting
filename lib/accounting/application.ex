@@ -9,8 +9,10 @@ defmodule Accounting.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      # Start the Ecto repository
-      Accounting.RedisConnection,
+      %{
+        id: Stack,
+        start: {Accounting.RedisConnection, :start_link, [Application.get_env(:accounting, :reddis_connection)]}
+      },
       AccountingWeb.Endpoint
       
       # Starts a worker by calling: Accounting.Worker.start_link(arg)
