@@ -4,12 +4,14 @@ defmodule Accounting.Application do
   @moduledoc false
 
   use Application
+  require Logger
 
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
       # Start the Ecto repository
-      AccountingWeb.Endpoint,
+      Accounting.RedisConnection,
+      AccountingWeb.Endpoint
       
       # Starts a worker by calling: Accounting.Worker.start_link(arg)
       # {Accounting.Worker, arg},
