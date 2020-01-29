@@ -3,9 +3,10 @@ defmodule AccountingWeb.PageController do
   alias Accounting.Urls, as: Urls
   action_fallback AccountingWeb.FallbackController
 
-  def index(conn, params) do
-    with {:ok, urls} <- Urls.list_hosts(params) do
-      json(conn, %{domains: urls, status: :ok})
+  def index(conn, %{"from" => from, "to"=> to}) do
+    with {:ok, urls} <- Urls.list_hosts(from, to) do
+      # json(conn, %{domains: urls, status: :ok})
+      render(conn, "index.json", %{domains: urls, status: :ok})
     end
   end
 

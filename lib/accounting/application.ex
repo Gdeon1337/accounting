@@ -10,7 +10,7 @@ defmodule Accounting.Application do
     # List all child processes to be supervised
     children = [
       %{
-        id: Stack,
+        id: Accounting.RedisConnection,
         start: {Accounting.RedisConnection, :start_link, [Application.get_env(:accounting, :reddis_connection)]}
       },
       AccountingWeb.Endpoint
