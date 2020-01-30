@@ -10,13 +10,10 @@ defmodule Accounting.Application do
     # List all child processes to be supervised
     children = [
       %{
-        id: Accounting.RedisConnection,
-        start: {Accounting.RedisConnection, :start_link, [Application.get_env(:accounting, :reddis_connection)]}
+        id: Accounting.RedisSupervisor,
+        start: {Accounting.RedisSupervisor, :start_link, [Application.get_env(:accounting, :reddis_connection)]}
       },
       AccountingWeb.Endpoint
-      
-      # Starts a worker by calling: Accounting.Worker.start_link(arg)
-      # {Accounting.Worker, arg},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

@@ -5,4 +5,8 @@ defmodule AccountingWeb.PageView do
     %{domains: domains, status: status}
   end
 
+  def render("create.json", %{status: status}) do
+    %{status: status}
+  end
+
 end

@@ -5,14 +5,13 @@ defmodule AccountingWeb.PageController do
 
   def index(conn, %{"from" => from, "to"=> to}) do
     with {:ok, urls} <- Urls.list_hosts(from, to) do
-      # json(conn, %{domains: urls, status: :ok})
       render(conn, "index.json", %{domains: urls, status: :ok})
     end
   end
 
   def create(conn, %{"links" => links}) do
     with :ok <- Urls.create_urls(links) do
-      json(conn, %{status: :ok})
+      render(conn, "create.json", %{status: :ok})
     end
   end
 

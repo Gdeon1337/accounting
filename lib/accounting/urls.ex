@@ -1,5 +1,5 @@
 defmodule Accounting.Urls do
-    alias Accounting.RedisConnection, as: Client
+    alias Accounting.RedisSupervisor, as: Client
     require Logger
 
 
@@ -9,8 +9,8 @@ defmodule Accounting.Urls do
             urls = urls
             |> Enum.map(&check_url(&1))
             |> Enum.filter(fn domain -> not is_nil(domain) end)
-            Client.zadds(urls, datetime)
-            :ok
+            {status, _} = Client.zadds(urls, datetime)
+            status
         end
     end
 
@@ -26,7 +26,7 @@ defmodule Accounting.Urls do
         true <- is_numeric(from), true <- is_numeric(to),
         datetime_start <- String.to_integer(from),
         datetime_end <- String.to_integer(to) do
-            hosts = Client.zrange(datetime_start, datetime_end)
+            hosts = Client.zrevrange_by_lex(datetime_start, datetime_end)
             |> Enum.map(&String.replace(&1, ~r/^\d*\:/, ""))
             |> Enum.uniq 
             {:ok, hosts}
