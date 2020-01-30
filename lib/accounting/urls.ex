@@ -15,7 +15,7 @@ defmodule Accounting.Urls do
     end
 
     defp check_url(url) do
-        host = Regex.run(~r/[a-z0-9-\.]+\.[a-z]{2,4}/, url)
+        host = Regex.run(~r/([a-zA-Z0-9]([a-zA-Z0-9\-]{0,65}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}/, url)
         if not is_nil(host) do
             List.first(host)
         end

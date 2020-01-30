@@ -1,14 +1,12 @@
 defmodule Accounting.RedisSupervisor do
   use Supervisor
   alias Redix
-  require Logger
 
   def start_link(redis_connection) do
     Supervisor.start_link(__MODULE__, redis_connection, name: __MODULE__)
   end
 
   def init(redis_connection) do
-    Logger.info("Redis connection created...")
     children =
         for i <- 0..(Application.get_env(:accounting, :pool_size) - 1) do
             %{
@@ -16,7 +14,6 @@ defmodule Accounting.RedisSupervisor do
               start: {Redix, :start_link, [redis_connection, [name: :"redix_#{i}"]]}
             }
         end
-    Logger.info("Redis connection successfull create")
     Supervisor.init(children, strategy: :one_for_one)
   end
 

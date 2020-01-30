@@ -11,7 +11,7 @@ defmodule Accounting.Application do
     children = [
       %{
         id: Accounting.RedisSupervisor,
-        start: {Accounting.RedisSupervisor, :start_link, [Application.get_env(:accounting, :reddis_connection)]}
+        start: {Accounting.RedisSupervisor, :start_link, [Application.get_env(:accounting, :redis_connection)]}
       },
       AccountingWeb.Endpoint
     ]

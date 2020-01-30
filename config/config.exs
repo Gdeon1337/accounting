@@ -23,7 +23,7 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :accounting,
-  reddis_connection: System.get_env("REDIS_CONNECTION"),
+  redis_connection: System.get_env("REDIS_CONNECTION"),
   pool_size: 5
 
 # Import environment specific config. This must remain at the bottom
