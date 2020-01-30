@@ -51,7 +51,7 @@ defmodule Accounting.RedisConnection do
     def handle_call(:ping, _from, %{:pid => pid} = state) do
         case Redix.command(pid, ["PING"]) do
             {:ok, "PONG"} -> {:reply, :ok, state}
-            _      -> {:reply, :error, state}
+            _      -> {:reply, {:error, :no_connection_redis}, state}
         end
     end
 
