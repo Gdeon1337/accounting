@@ -17,9 +17,9 @@ defmodule Accounting.RedisSupervisor do
     Supervisor.init(children, strategy: :one_for_one)
   end
 
-  def zadds(value, datetime) do
+  def zadds(value, timestamp) do
       value = value
-        |> Enum.map(fn domain -> ["ZADD", "urls", 0, "#{datetime}:#{domain}"] end)
+        |> Enum.map(fn domain -> ["ZADD", "urls", 0, "#{timestamp}:#{domain}"] end)
       Redix.pipeline(:"redix_#{random_index()}", value)
   end
 
