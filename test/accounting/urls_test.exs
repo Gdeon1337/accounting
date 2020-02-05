@@ -10,9 +10,6 @@ defmodule Accounting.UrlsTest do
     "https://stackoverflow.com/questions/11828270/how-to-exit-the-vim-editor"
   ]
 
-  @valid_url "https://ya.ru?q=123"
-  @valid_host "ya.ru"
-  @invalid_url "yaru?q=123"
   @date_time DateTime.utc_now() |> DateTime.to_unix() |> to_string
 
 
@@ -24,17 +21,17 @@ defmodule Accounting.UrlsTest do
     end
 
     test "list_host_invalid_params_from" do
-      status = Urls.list_hosts(%{"from" => "invalid_params", "to" => @date_time})
+      status = Urls.list_hosts("invalid_params", @date_time)
       assert status == {:error, :incorrect_data}
     end
 
     test "list_host_invalid_params_to" do
-      status = Urls.list_hosts(%{"from" => @date_time, "to" => "invalid_params"})
+      status = Urls.list_hosts(@date_time, "invalid_params")
       assert status == {:error, :incorrect_data}
     end
 
     test "list_host_valid_params" do
-      status = Urls.list_hosts(%{"from" => @date_time, "to" => @date_time})
+      status = Urls.list_hosts(@date_time, @date_time)
       assert status != {:error, :incorrect_data}
     end
   end

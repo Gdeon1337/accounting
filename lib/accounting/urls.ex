@@ -1,9 +1,6 @@
 defmodule Accounting.Urls do
     alias Accounting.RedisSupervisor, as: Client
-    require Logger
     alias Regex
-
-    @re_check_url Regex.compile!("([a-zA-Z0-9]([a-zA-Z0-9\-]{0,65}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}")
 
     def create_urls(urls) do
         with :ok <- Client.ping() do
@@ -17,7 +14,7 @@ defmodule Accounting.Urls do
     end
 
     defp check_url(url) do
-        host = Regex.run(@re_check_url, url)
+        host = Regex.run(~r/([a-zA-Z0-9]([a-zA-Z0-9\-]{0,65}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}/, url)
         if not is_nil(host) do
             List.first(host)
         end

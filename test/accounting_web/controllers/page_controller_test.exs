@@ -44,9 +44,9 @@ defmodule AccountingWeb.PageControllerTest do
       conn = post(conn, Routes.page_path(conn, :create), @links_data)
       to = DateTime.utc_now() |> DateTime.to_unix()
       conn = get(conn, Routes.page_path(conn, :index, from: "invalid_params", to: to))
-      assert json_response(conn, 415) == %{"status" => "incorrect_data"}
+      assert json_response(conn, 415) == %{"status" => "Incorrect data"}
       conn = get(conn, Routes.page_path(conn, :index, from: @date_time, to: "invalid_params"))
-      assert json_response(conn, 415) == %{"status" => "incorrect_data"}
+      assert json_response(conn, 415) == %{"status" => "Incorrect data"}
     end
   end
 

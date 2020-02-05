@@ -5,9 +5,10 @@ defmodule AccountingWeb.Router do
     plug :accepts, ["json"]
   end
   
-  scope "/api", AccountingWeb do
+  scope "/", AccountingWeb do
     pipe_through :api
-    resources "/domains", PageController, only: [:index, :create]
+    get "/visited_domains", PageController, :index
+    post "/visited_links", PageController, :create
   end
 
 end
